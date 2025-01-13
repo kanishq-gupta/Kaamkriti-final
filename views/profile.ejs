@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= worker.name %> - Professional Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+
+        .profile-header {
+            position: relative;
+            height: 320px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #c026d3 100%);
+            overflow: hidden;
+        }
+
+        .header-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+            background-image: 
+                linear-gradient(30deg, #4f46e5 12%, transparent 12.5%, transparent 87%, #4f46e5 87.5%, #4f46e5),
+                linear-gradient(150deg, #4f46e5 12%, transparent 12.5%, transparent 87%, #4f46e5 87.5%, #4f46e5),
+                linear-gradient(30deg, #4f46e5 12%, transparent 12.5%, transparent 87%, #4f46e5 87.5%, #4f46e5),
+                linear-gradient(150deg, #4f46e5 12%, transparent 12.5%, transparent 87%, #4f46e5 87.5%, #4f46e5),
+                linear-gradient(60deg, #7c3aed 25%, transparent 25.5%, transparent 75%, #7c3aed 75%, #7c3aed),
+                linear-gradient(60deg, #7c3aed 25%, transparent 25.5%, transparent 75%, #7c3aed 75%, #7c3aed);
+            background-size: 40px 70px;
+            background-position: 0 0, 0 0, 20px 35px, 20px 35px, 0 0, 20px 35px;
+        }
+
+        .profile-avatar {
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 140px;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #4f46e5, #c026d3);
+            border: 6px solid white;
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(79, 70, 229, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .profile-avatar:hover {
+            border-radius: 50%;
+            transform: translateX(-50%) rotate(10deg);
+            box-shadow: 
+                0 20px 40px rgba(79, 70, 229, 0.2),
+                0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .profile-content {
+            padding: 90px 0 60px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .profile-name {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .profile-name h1 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4f46e5, #c026d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .profile-name p {
+            color: #64748b;
+            font-size: 1.25rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-name p::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #4f46e5, #c026d3);
+            border-radius: 2px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .detail-card {
+            background: white;
+            padding: 28px;
+            border-radius: 20px;
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(79, 70, 229, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .detail-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(79, 70, 229, 0.1),
+                0 0 0 2px rgba(79, 70, 229, 0.2);
+        }
+
+        .detail-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(192, 38, 211, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: #4f46e5;
+            transition: all 0.3s ease;
+        }
+
+        .detail-card:hover .detail-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .detail-info h3 {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .detail-info p {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0f172a;
+            letter-spacing: -0.01em;
+        }
+
+        .experience-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 48px;
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(79, 70, 229, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #4f46e5, #c026d3);
+        }
+
+        .experience-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(79, 70, 229, 0.1);
+        }
+
+        .experience-header h2 {
+            font-size: 1.75rem;
+            color: #0f172a;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .experience-content {
+            color: #475569;
+            font-size: 1.125rem;
+            line-height: 1.8;
+        }
+
+        .additional-info {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(79, 70, 229, 0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-item span {
+            font-size: 1rem;
+            color: #64748b;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-back {
+            background: white;
+            color: #0f172a;
+            border: 1px solid rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-back:hover {
+            background: rgba(79, 70, 229, 0.05);
+            border-color: rgba(79, 70, 229, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5, #c026d3);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(79, 70, 229, 0.35);
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                height: 280px;
+            }
+
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 2.5rem;
+            }
+
+            .profile-name h1 {
+                font-size: 2rem;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-card {
+                padding: 30px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="profile-header">
+        <div class="header-pattern"></div>
+        <div class="container">
+            <div class="profile-avatar" id="avatar">
+                <%= worker.name.charAt(0).toUpperCase() %>
+            </div>
+        </div>
+    </header>
+
+    <main class="profile-content" id="content">
+        <div class="container">
+            <div class="profile-name">
+                <h1><%= worker.name %></h1>
+                <p><%= worker.profession %></p>
+            </div>
+
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="detail-icon">👤</div>
+                    <div class="detail-info">
+                        <h3>Personal Info</h3>
+                        <p><%= worker.age %> years • <%= worker.gender %></p>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">📱</div>
+                    <div class="detail-info">
+                        <h3>Contact</h3>
+                        <p><%= worker.phone %></p>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">🌐</div>
+                    <div class="detail-info">
+                        <h3>Language</h3>
+                        <p><%= worker.language %></p>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">💼</div>
+                    <div class="detail-info">
+                        <h3>Experience</h3>
+                        <p><%= worker.experience %> years</p>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">💰</div>
+                    <div class="detail-info">
+                        <h3>Expected Salary</h3>
+                        <p>₹<%= worker.salary %></p>
+                    </div>
+                </div>
+
+                <div class="detail-card">
+                    <div class="detail-icon">📍</div>
+                    <div class="detail-info">
+                        <h3>Location</h3>
+                        <p><%= worker.city %></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="experience-card">
+                <div class="experience-header">
+                    <div class="detail-icon">⭐</div>
+                    <h2>Professional Experience</h2>
+                </div>
+                <div class="experience-content">
+                    <p><%= worker.pastExperience %></p>
+                    <div class="additional-info">
+                        <div class="info-item">
+                            <div class="detail-icon">🏠</div>
+                            <span><%= worker.address %></span>
+                        </div>
+                        <div class="info-item">
+                            <div class="detail-icon">📋</div>
+                            <span>Aadhar: <%= worker.aadhar %></span>
+                        </div>
+                        <div class="info-item">
+                            <div class="detail-icon">🙏</div>
+                            <span>Religion: <%= worker.religion %></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <a href="/workers-list" class="btn btn-back">
+                    ← Back to List
+                </a>
+                <a href="/book-now" class="btn btn-primary">
+                    📅 Book Now
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.from('#avatar', {
+                y: -100,
+                opacity: 0,
+                duration: 1.2,
+                ease: 'elastic.out(1, 0.5)',
+                delay: 0.2
+            });
+
+            gsap.to('#content', {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                delay: 0.4
+            });
+
+            const cards = document.querySelectorAll('.detail-card');
+            cards.forEach((card, index) => {
+                gsap.to(card, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.5,
+                    delay: 0.6 + (index * 0.1),
+                    ease: 'power3.out'
+                });
+            });
+
+            gsap.to('.experience-card', {
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                delay: 1.2,
+                ease: 'power3.out'
+            });
+
+            gsap.to('.action-buttons', {
+                opacity: 1,
+                y: 0,
+                duration: 0.5,
+                delay: 1.4,
+                ease: 'power3.out'
+            });
+        });
+    </script>
+</body>
+</html>

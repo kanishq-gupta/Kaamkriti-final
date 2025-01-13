@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+<div class="bookings-container">
+    <h1>Your Bookings</h1>
+    <div class="bookings-list">
+        <% bookings.forEach(booking => { %>
+            <div class="booking-card">
+                <h3>Service: <%= booking.service %></h3>
+                <p>Professional: <%= booking.name %></p>
+                <p>Date: <%= booking.date.toLocaleDateString() %></p>
+                <p>Status: <%= booking.status %></p>
+            </div>
+        <% }); %>
+    </div>
+</div>
+
