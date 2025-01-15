@@ -38,10 +38,11 @@ app.use(session({
         ttl: 24 * 60 * 60 // Session TTL (1 day)
     }),
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
     }
 }));
+
 
 // Set EJS as templating engine
 app.set('view engine', 'ejs');
