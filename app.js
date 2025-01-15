@@ -24,11 +24,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Middleware for parsing form data
+// Body parser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Session configuration with MongoDB store
+// Session configuration
 app.use(session({
     secret: process.env.SESSION_SECRET || 'your-secret-key',
     resave: false,
@@ -38,11 +38,11 @@ app.use(session({
         ttl: 24 * 60 * 60 // Session TTL (1 day)
     }),
     cookie: {
-        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        secure: process.env.NODE_ENV === 'production', // Enable secure cookies in production
+        httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
     }
 }));
-
 
 // Set EJS as templating engine
 app.set('view engine', 'ejs');
@@ -62,10 +62,6 @@ app.use(async (req, res, next) => {
     }
     next();
 });
-app.get('/thank-you', (req, res) => {
-    res.render('thank-you'); // Directly render the page
-});
-
 
 // Routes
 app.use('/', require('./routes/index'));
@@ -75,6 +71,11 @@ app.use('/profile', isAuthenticated, require('./routes/profile'));
 app.use('/booking', isAuthenticated, require('./routes/booking'));
 app.use('/', require('./routes/dashboard'));
 app.use('/', choiceRoutes);
+
+// Thank You Route
+app.get('/thank-you', (req, res) => {
+    res.render('thank-you');
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -87,6 +88,7 @@ app.use((req, res) => {
     res.status(404).render('error', { message: 'Page not found' });
 });
 
+// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
