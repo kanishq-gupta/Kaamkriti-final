@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background-color: #F7EEF1;
+}
+
+.nav {
+    width: 100vw;
+    background-color: #3108C8;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logo {
+    position: relative;
+
+}
+
+.logo img {
+    height: 190px; 
+    width: 190px;
+    margin-top: 36px;
+    margin-left: -850px;
+
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    margin: 20px auto;
+    padding: 40px;
+    border-radius: 22px;
+    height: 600px;
+    width: 800px;
+    background-color: rgba(202, 192, 243, 0.34);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.details {
+    margin-top: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.input {
+    font-weight: bold;
+    color: #000;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.upload-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    height: 100px;
+    text-align: center;
+    color: #555;
+    font-size: 14px;
+    background-color: #f7f7f7;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3108C8;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #240b99;
+}

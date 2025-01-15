@@ -1,0 +1,63 @@
+<%- include('partials/header') %>
+
+<div class="dashboard-container">
+    <h1>Welcome, <%= user.name %></h1>
+    
+    <div class="dashboard-content">
+        <% if (role === 'worker') { %>
+            <!-- Worker Dashboard -->
+            <div class="section">
+                <h2>Your Bookings</h2>
+                <div class="bookings-grid">
+                    <% data.bookings.forEach(booking => { %>
+                        <div class="booking-card">
+                            <h3>Booking Details</h3>
+                            <p>Service: <%= booking.service %></p>
+                            <p>Customer: <%= booking.user.name %></p>
+                            <p>Date: <%= booking.date.toLocaleDateString() %></p>
+                            <p>Status: <%= booking.status %></p>
+                            <div class="booking-actions">
+                                <% if (booking.status === 'pending') { %>
+                                    <form action="/booking/update-status" method="POST" style="display: inline;">
+                                        <input type="hidden" name="bookingId" value="<%= booking._id %>">
+                                        <input type="hidden" name="status" value="confirmed">
+                                        <button type="submit" class="btn btn-success">Accept</button>
+                                    </form>
+                                    <form action="/booking/update-status" method="POST" style="display: inline;">
+                                        <input type="hidden" name="bookingId" value="<%= booking._id %>">
+                                        <input type="hidden" name="status" value="cancelled">
+                                        <button type="submit" class="btn btn-danger">Decline</button>
+                                    </form>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% } else { %>
+            <!-- Customer Dashboard -->
+            <div class="section">
+                <h2>Your Bookings</h2>
+                <div class="bookings-grid">
+                    <% data.bookings.forEach(booking => { %>
+                        <div class="booking-card">
+                            <h3>Booking Details</h3>
+                            <p>Service: <%= booking.service %></p>
+                            <p>Professional: <%= booking.worker.name %></p>
+                            <p>Date: <%= booking.date.toLocaleDateString() %></p>
+                            <p>Status: <%= booking.status %></p>
+                            <% if (booking.status === 'pending' || booking.status === 'confirmed') { %>
+                                <form action="/booking/cancel" method="POST">
+                                    <input type="hidden" name="bookingId" value="<%= booking._id %>">
+                                    <button type="submit" class="btn btn-danger">Cancel Booking</button>
+                                </form>
+                            <% } %>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

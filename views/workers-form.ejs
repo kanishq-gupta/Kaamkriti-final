@@ -1,0 +1,96 @@
+<head>
+    <link rel="stylesheet" href="css/workers-form.css">
+</head>
+<div class="nav">
+    <h1>UPLOAD YOUR DETAILS HERE</h1>
+    <div class="logo"><img src="/images/image-removebg-preview.png" alt="logo"></div>
+</div>
+
+<div class="form-container">
+<form action="/register-worker" method="POST">
+    <div class="details">
+        <table>
+            <tr>
+                <td class="form-field"><label for="name" class="input">Full Name:</label></td>
+                <td><input type="text" id="name" name="name" required></td>
+            </tr>
+            <tr>
+                <td class="form-field"><label for="PhoneNumber" class="input">Phone Number:</label></td>
+                <td><input type="tel" id="PhoneNumber" name="phone" pattern="\d{10}" required></td>
+            </tr>
+            <tr>
+                <td class="form-field"><label for="age" class="input">Age:</label></td>
+                <td><input type="number" name="age" id="age" required></td>
+            </tr>
+            <tr>
+                <td class="input"><label>Gender:</label></td>
+                <td>
+                    <input type="radio" id="male" name="gender" value="Male" required>
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="Female" required>
+                    <label for="female">Female</label>
+                    <input type="radio" id="other" name="gender" value="Other" required>
+                    <label for="other">Other</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="form-field"><label for="add" class="input">Full Address:</label></td>
+                <td><input type="text" id="add" name="address" required></td>
+            </tr>
+            <tr>
+                <td class="form-field"><label for="lang" class="input">Language:</label></td>
+                <td><input type="text" id="lang" name="language" required></td>
+            </tr>
+            <tr>
+                <td class="form-field"><label for="religion" class="input">Religion:</label></td>
+                <td><input type="text" id="religion" name="religion" required></td>
+            </tr>
+            <tr>
+                <td class="form-field"><label for="aadhar" class="input">Aadhar Details:</label></td>
+                <td><input type="text" id="aadhar" name="aadhar" required></td>
+            </tr>
+            <tr>
+                <td class="form-field"><label for="city" class="input">City:</label></td>
+                <td>
+                    <select id="city" name="city" required>
+                        <option value="" disabled selected>Choose your City</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Mumbai">Mumbai</option>
+                        <option value="Bangalore">Bangalore</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+            
+                <td class="form-field"><label for="profession" class="input">Profession:</label></td>
+                <td>
+                    <select id="profession" name="profession" required>
+                        <option value="" disabled selected>Select Profession</option>
+                        <option value="Driver">Driver</option>
+                        <option value="Electrician">Electrician</option>
+                        <option value="Plumber">Plumber</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="form-field"><label for="pastExperience" class="input">Past Experience:</label></td>
+                <td><input type="text" id="pastExperience" name="pastExperience" required></td>
+            </tr>
+            <tr>
+                <td class="form-field"><label for="experience" class="input">Years of Experience:</label></td>
+                <td><input type="number" id="experience" name="experience" required></td>
+            </tr>
+            <tr>
+                <td class="form-field"><label for="expectedSalary" class="input">Expected Salary:</label></td>
+                <td><input type="text" id="expectedSalary" name="salary" required></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit" class="submit-button">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</form>
+</div>
+</form>
