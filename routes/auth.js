@@ -4,13 +4,13 @@ const User = require('../models/User');
 
 // Middleware to check if user is authenticated
 const isAuthenticated = (req, res, next) => {
-    if (req.session.userId) {
+    if (req.session && req.session.userId) {
         return next();
     }
     res.redirect('/login');
 };
 
-// Login routes
+// Login route
 router.get('/login', (req, res) => {
     if (req.session.userId) {
         return res.redirect('/choice');
@@ -28,6 +28,7 @@ router.post('/login', async (req, res) => {
         }
 
         req.session.userId = user._id;
+        console.log('Session after login:', req.session); // Debugging
         res.redirect('/choice');
     } catch (error) {
         console.error('Login error:', error);
@@ -35,7 +36,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Signup routes
+// Signup route
 router.get('/signup', (req, res) => {
     if (req.session.userId) {
         return res.redirect('/choice');
@@ -46,7 +47,7 @@ router.get('/signup', (req, res) => {
 router.post('/signup', async (req, res) => {
     try {
         const { name, email, password, role } = req.body;
-        
+
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.render('auth/signup', { error: 'Email already registered' });
@@ -74,6 +75,7 @@ router.get('/logout', (req, res) => {
         if (err) {
             console.error('Logout error:', err);
         }
+        res.clearCookie('connect.sid'); // Clear the cookie
         res.redirect('/');
     });
 });
