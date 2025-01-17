@@ -6,6 +6,10 @@ Kaamkriti is a platform designed to connect local businesses with skilled worker
 - The frontend of Kaamkriti is live at: [kaamkriti.vercel.app](https://kaamkriti.vercel.app)
 - GitHub repository for the frontend: [Kaamkriti Frontend Repository](https://github.com/kanishq-gupta/Kaamkriti)
 
+## Known Issues
+- The current design is optimized for a screen resolution of **1280x760px**. Other screen sizes may not display the frontend properly.
+- **Future Update**: I am actively working on improving the responsiveness of the frontend for various screen sizes and ensuring a consistent user experience across devices. This fix will be included in an upcoming update.
+
 ## Technologies Used
 - **Frontend**: HTML, CSS, JavaScript, EJS (for templating)
 - **Backend**: Node.js, Express.js
