@@ -33,7 +33,7 @@ Kaamkriti is a platform designed to connect local businesses with skilled worker
 
 ### Prerequisites
 - Node.js
-- MongoDB or MySQL (depending on your database preference)
+- MongoDB atlas
 
 ### Clone the Repository
 To get started with the project, clone the repository:
