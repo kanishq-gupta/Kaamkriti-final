@@ -1,7 +1,7 @@
 {
-  "name": "urban-clap-clone",
+  "name": "Kaamkriti",
   "version": "1.0.0",
-  "description": "Urban Clap Clone with HTML, CSS, EJS, and MongoDB",
+  "description": "Kaamkriti with HTML, CSS, EJS, and MongoDB",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
